@@ -1,0 +1,21 @@
+{
+  "prefixes": {
+    "dc_terms": "http://purl.org/dc/terms/",
+    "schema": "http://schema.org/"
+  },
+  "resources": {
+    "agents": {
+      "rdfType": "dc_terms:Agent",
+      "attributes": {
+        "phone-number": {
+          "label": "Phone number",
+          "type": "string",
+          "path": [
+            "schema:contactPoint",
+            "schema:email"
+          ]
+        }
+      }
+    }
+  }
+}
