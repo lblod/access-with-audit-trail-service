@@ -22,7 +22,14 @@ app.use(
 app.post("/:key/:id", async function (req, res, next) {
   try {
     const sessionId = req.get(HEADER_MU_SESSION_ID);
-    const result = await processRead(sessionId, req.params);
+    const { key, id } = req.params;
+    const { reasonId, include } = req.query;
+    const result = await processRead(sessionId, {
+      key,
+      resourceId: id,
+      reasonId,
+      include,
+    });
     return res.status(200).send(result);
   } catch (e) {
     return next(e);
