@@ -1,25 +1,25 @@
-import config from "./lib/config";
-const HEADER_MU_SESSION_ID = "mu-session-id";
+import config from './lib/config';
+const HEADER_MU_SESSION_ID = 'mu-session-id';
 
-import { app } from "mu";
-import bodyParser from "body-parser";
-import { checkNotEmpty } from "./lib/util";
+import { app } from 'mu';
+import bodyParser from 'body-parser';
+import { checkNotEmpty } from './lib/util';
 import {
   getAccountBySession,
   getSubject,
   getAttribute,
   getReasonUri,
   writeReason,
-} from "./lib/queries";
+} from './lib/queries';
 app.use(
   bodyParser.json({
     type: function (req) {
-      return /^application\/json/.test(req.get("content-type"));
+      return /^application\/json/.test(req.get('content-type'));
     },
   }),
 );
 
-app.post("/:key/:id", async function (req, res, next) {
+app.get('/:key/:id', async function (req, res, next) {
   try {
     const sessionId = req.get(HEADER_MU_SESSION_ID);
     const { key, id } = req.params;
@@ -41,11 +41,11 @@ async function processRead(sessionId, params) {
 
   let reason = await getReasonUri(reasonId);
   let accountUri = await getAccountBySession(sessionId);
-  checkNotEmpty(accountUri, "Account must be set!");
+  checkNotEmpty(accountUri, 'Account must be set!');
   let resourceConfig = config.getResource(key);
   checkNotEmpty(resourceConfig, `no configuration found for ${key}`);
-  let props = include.split(",");
-  checkNotEmpty(props, "no property requested");
+  let props = include.split(',');
+  checkNotEmpty(props, 'no property requested');
 
   let subject = await getSubject(resourceConfig.rdfType, resourceId);
 
@@ -63,7 +63,7 @@ async function processRead(sessionId, params) {
     console.error(
       "didn't find any attributes for",
       resourceId,
-      "attributes:",
+      'attributes:',
       props,
     );
     return null;
