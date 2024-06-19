@@ -51,7 +51,7 @@ async function processRead(sessionId, params) {
 
   let foundAttributes = new Map();
   for (const prop of props) {
-    if (resourceConfig.has(prop)) {
+    if (resourceConfig.attributes.has(prop)) {
       const attributeConf = resourceConfig.attributes.get(prop);
       const attribute = await getAttribute(subject, attributeConf.path);
       if (attribute?.length) {
@@ -68,7 +68,7 @@ async function processRead(sessionId, params) {
     );
     return null;
   }
-  await writeReason(accountUri, reason, foundAttributes.keys());
+  await writeReason(accountUri, reason, [...foundAttributes.keys()]);
   const attrs = [...foundAttributes].reduce((o, [key, value]) => {
     o[key] = value;
     return o;
