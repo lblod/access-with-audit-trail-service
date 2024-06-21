@@ -30,7 +30,7 @@ app.get('/:key/:id', async function (req, res, next) {
       reasonId,
       include,
     });
-    return res.status(200).send(result);
+    return res.json(result);
   } catch (e) {
     return next(e);
   }
@@ -55,7 +55,7 @@ async function processRead(sessionId, params) {
       const attributeConf = resourceConfig.attributes.get(prop);
       const attribute = await getAttribute(subject, attributeConf.path);
       if (attribute?.length) {
-        foundAttributes.set(prop, attribute);
+        foundAttributes.set(prop, { attribute, attributeConf });
       }
     }
   }
@@ -68,9 +68,9 @@ async function processRead(sessionId, params) {
     );
     return null;
   }
-  await writeReason(accountUri, reason, [...foundAttributes.keys()]);
+  await writeReason(subject, accountUri, reason, [...foundAttributes.values()]);
   const attrs = [...foundAttributes].reduce((o, [key, value]) => {
-    o[key] = value;
+    o[key] = value.attribute;
     return o;
   }, {});
   return {
