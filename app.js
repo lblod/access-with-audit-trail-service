@@ -66,7 +66,7 @@ async function processRead(sessionId, params) {
       'attributes:',
       props,
     );
-    return null;
+    return { data: null };
   }
   await writeReason(subject, accountUri, reason, [...foundAttributes.values()]);
   const attrs = [...foundAttributes].reduce((o, [key, value]) => {
