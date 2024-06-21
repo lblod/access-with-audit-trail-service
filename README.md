@@ -5,8 +5,6 @@ This service provides a way to log access to specific attributes of a given reso
 It works similarly to the [Privacy service](https://github.com/lblod/privacy-centric-service),
 but in this case the service is more generic.
 
-## Environment variable
-
 ## Full example
 
 #### docker-compose.yml
