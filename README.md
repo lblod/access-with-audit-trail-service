@@ -48,10 +48,18 @@ access-with-audit-trail:
           "type": "string",
           "path": ["foaf:familyName"]
         },
+        "gender": {
+          "label": "Gender",
+          "type": "string",
+          "path": [
+            "persoon:geslacht",
+            "http://www.w3.org/2004/02/skos/core#prefLabel"
+          ]
+        },
         "first-name-used": {
           "label": "First name used",
           "type": "string",
-          "path": "persoon:gebruikteVoornaam"
+          "path": ["persoon:gebruikteVoornaam"]
         }
       }
     }
@@ -91,7 +99,7 @@ PREFIX mu: <http://mu.semte.ch/vocabularies/core/>
 #### using curl
 
 ```
-curl 'http://localhost/access-with-audit-trail/people/7daa61fcd543c33f63014dd97db0950d0e6475ac40ed553346a9ce58d7775a95?reasonId=3aeec145-acf3-4b6e-9c00-5b8e285736e0&include=given-name' \
+curl 'http://localhost/access-with-audit-trail/people/fa346447ef3262f90217c8534e49e9f7?reasonId=3aeec145-acf3-4b6e-9c00-5b8e285736e0&include=given-name,family-name' \
 -H 'Accept: application/vnd.api+json'   --compressed  \
 -H  'Cookie: mongo-express=s%3AInF0VUj85ivrTDBJZeO-m-DL0GHH4qj0.GdrzS6IKBEtY54extsCUWmWwKfShQgva%2F%2BVO0juLqRs; io=kvZdKTmLQwMQw6AHAAAB; proxy_session=QTEyOEdDTQ.SwAZnkCaGbcRwNO1sxYy_q9032Wygla2TgG073Z8ae7HN4GyO1RzDNQD32Y.rz5CNhgEXoV0VWyW.pS8jGskeXmStJY64AzM7mRdjsFE0-5Vd3HtsgskymkuqBk7VekS4u2Xs1uipacvlpdcoTyrWT8k4rx5KK58VhuDtcnwrJYxl8gHhltrdIkz8e1JtRdLXpKGDSSHeJ66V8iMqDQg6JTxa22-qctBFofBblVZgaCgv5YOBXaumGwBj01xaVnwguuhCoB6ebqRV-f8Cn5Kv4g-qL25nmoHgytCsRAZBeo6JXZZ2DPx-VK5rCrxSo9xbwBIESJND9XrNqR49REVaP83FJxqYtt3woC6iwTmfv7Kt7V-tegiGru1_PG87u0ibjpDPQg.5C-H8AKZPl_aua_ZvSck2g'
 ```
@@ -104,8 +112,8 @@ The command above using OP database should output:
     "type": "people",
     "id": "7daa61fcd543c33f63014dd97db0950d0e6475ac40ed553346a9ce58d7775a95",
     "attributes": {
-      "given-name": "Aagje",
-      "family-name": "Merlevede"
+      "given-name": "the given name",
+      "family-name": "the family name"
     },
     "relationships": {}
   }
@@ -124,18 +132,75 @@ The following should be saved in the triplestore:
  PREFIX session: <http://mu.semte.ch/vocabularies/session/>
  PREFIX foaf: <http://xmlns.com/foaf/0.1/>
  PREFIX besluit: <http://data.vlaanderen.be/ns/besluit#>
+ PREFIX dcterms: <http://purl.org/dc/terms/>
 
      INSERT DATA {
        graph <http://mu.semte.ch/graphs/audit-trail-service> {
-         <http://data.lblod.info/id/audit-trail-entries/413bf0f0-2fb8-11ef-a6eb-b941ca6da508> a ext:AuditTrailEntry;
-           mu:uuid "413bf0f0-2fb8-11ef-a6eb-b941ca6da508";
-           ext:date "2024-06-21T10:23:08.671Z"^^xsd:dateTime;
-           ext:requester  <http://data.lblod.info/id/account/3a91ff60-07c1-4136-ac5e-55cf401e0957>;
-           ext:subject <http://data.lblod.info/id/personen/7daa61fcd543c33f63014dd97db0950d0e6475ac40ed553346a9ce58d7775a95>;
-           ext:path <http://xmlns.com/foaf/0.1/givenName>;
-           ext:path <http://xmlns.com/foaf/0.1/familyName>;
+         <http://data.lblod.info/id/audit-trail-entries/a6cc40d0-adbe-11ef-b5f4-fd38d66e2101> a ext:AuditTrailEntry;
+           mu:uuid "a6cc40d0-adbe-11ef-b5f4-fd38d66e2101";
+           dcterms:created "2024-11-28T19:26:22.556Z"^^xsd:dateTime;
+           dcterms:identifier """b838f67c-6c4c-44b2-8297-c9eefccc5e35""";
+           ext:requester  <http://data.lblod.info/id/account/cd52ed34-7bcd-41df-a7d4-c805c1d1a197>;
+           ext:subject <http://data.lblod.info/id/personen/fa346447ef3262f90217c8534e49e9f7>;
+           ext:shape <http://data.lblod.info/id/node-shapes/a6cc40d1-adbe-11ef-b5f4-fd38d66e2101>,<http://data.lblod.info/id/node-shapes/a6cc40d3-adbe-11ef-b5f4-fd38d66e2101>;
            ext:code  <http://data.lblod.info/id/information-request-reason/3aeec145-acf3-4b6e-9c00-5b8e285736e0>.
+         <http://data.lblod.info/id/node-shapes/a6cc40d1-adbe-11ef-b5f4-fd38d66e2101> a <http://www.w3.org/ns/shacl#NodeShape>.
+	       <http://data.lblod.info/id/node-shapes/a6cc40d1-adbe-11ef-b5f4-fd38d66e2101> <http://mu.semte.ch/vocabularies/core/uuid> """a6cc40d1-adbe-11ef-b5f4-fd38d66e2101""".
+         <http://data.lblod.info/id/node-paths/a6cc40d2-adbe-11ef-b5f4-fd38d66e2101> a <http://www.w3.org/1999/02/22-rdf-syntax-ns#List>.
+         <http://data.lblod.info/id/node-paths/a6cc40d2-adbe-11ef-b5f4-fd38d66e2101> <http://mu.semte.ch/vocabularies/core/uuid> """a6cc40d2-adbe-11ef-b5f4-fd38d66e2101""".
+         <http://data.lblod.info/id/node-paths/a6cc40d2-adbe-11ef-b5f4-fd38d66e2101> <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://xmlns.com/foaf/0.1/givenName>.
+         <http://data.lblod.info/id/node-paths/a6cc40d2-adbe-11ef-b5f4-fd38d66e2101> <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
+         <http://data.lblod.info/id/node-shapes/a6cc40d1-adbe-11ef-b5f4-fd38d66e2101> <http://www.w3.org/ns/shacl#path> <http://data.lblod.info/id/node-paths/a6cc40d2-adbe-11ef-b5f4-fd38d66e2101>.
+         <http://data.lblod.info/id/node-shapes/a6cc40d3-adbe-11ef-b5f4-fd38d66e2101> a <http://www.w3.org/ns/shacl#NodeShape>.
+         <http://data.lblod.info/id/node-shapes/a6cc40d3-adbe-11ef-b5f4-fd38d66e2101> <http://mu.semte.ch/vocabularies/core/uuid> """a6cc40d3-adbe-11ef-b5f4-fd38d66e2101""".
+         <http://data.lblod.info/id/node-paths/a6cc40d4-adbe-11ef-b5f4-fd38d66e2101> a <http://www.w3.org/1999/02/22-rdf-syntax-ns#List>.
+         <http://data.lblod.info/id/node-paths/a6cc40d4-adbe-11ef-b5f4-fd38d66e2101> <http://mu.semte.ch/vocabularies/core/uuid> """a6cc40d4-adbe-11ef-b5f4-fd38d66e2101""".
+         <http://data.lblod.info/id/node-paths/a6cc40d4-adbe-11ef-b5f4-fd38d66e2101> <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://xmlns.com/foaf/0.1/familyName>.
+         <http://data.lblod.info/id/node-paths/a6cc40d4-adbe-11ef-b5f4-fd38d66e2101> <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
+         <http://data.lblod.info/id/node-shapes/a6cc40d3-adbe-11ef-b5f4-fd38d66e2101> <http://www.w3.org/ns/shacl#path> <http://data.lblod.info/id/node-paths/a6cc40d4-adbe-11ef-b5f4-fd38d66e2101>.
        }
      }
 
+```
+
+In case you request for the `gender`, which requires multiple paths, you will get the following:
+
+`curl http://localhost/access-with-audit-trail/people/fa346447ef3262f90217c8534e49e9f7?reasonId=3aeec145-acf3-4b6e-9c00-5b8e285736e0&include=gender`
+
+```sparql
+ PREFIX sh:   <http://www.w3.org/ns/shacl#>
+ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+ PREFIX mu: <http://mu.semte.ch/vocabularies/core/>
+ PREFIX persoon: <https://data.vlaanderen.be/ns/persoon#>
+ PREFIX ext: <http://mu.semte.ch/vocabularies/ext/>
+ PREFIX person: <http://www.w3.org/ns/person#>
+ PREFIX session: <http://mu.semte.ch/vocabularies/session/>
+ PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+ PREFIX besluit: <http://data.vlaanderen.be/ns/besluit#>
+ PREFIX dcterms: <http://purl.org/dc/terms/>
+
+     INSERT DATA {
+       graph <http://mu.semte.ch/graphs/audit-trail-service> {
+         <http://data.lblod.info/id/audit-trail-entries/5a2bd030-ada3-11ef-8872-33bcef484b5e> a ext:AuditTrailEntry;
+           mu:uuid "5a2bd030-ada3-11ef-8872-33bcef484b5e";
+           dcterms:created "2024-11-28T16:10:57.587Z"^^xsd:dateTime;
+           dcterms:identifier """b838f67c-6c4c-44b2-8297-c9eefccc5e35""";
+           ext:requester  <http://data.lblod.info/id/account/cd52ed34-7bcd-41df-a7d4-c805c1d1a197>;
+           ext:subject <http://data.lblod.info/id/personen/fa346447ef3262f90217c8534e49e9f7>;
+           ext:shape <http://data.lblod.info/id/node-shapes/5a2bd031-ada3-11ef-8872-33bcef484b5e>;
+           ext:code  <http://data.lblod.info/id/information-request-reason/3aeec145-acf3-4b6e-9c00-5b8e285736e0>.
+
+        <http://data.lblod.info/id/node-shapes/5a2bd031-ada3-11ef-8872-33bcef484b5e> a <http://www.w3.org/ns/shacl#NodeShape>.
+        <http://data.lblod.info/id/node-shapes/5a2bd031-ada3-11ef-8872-33bcef484b5e> <http://mu.semte.ch/vocabularies/core/uuid> """5a2bd031-ada3-11ef-8872-33bcef484b5e""".
+        <http://data.lblod.info/id/node-paths/5a2bd032-ada3-11ef-8872-33bcef484b5e> a <http://www.w3.org/1999/02/22-rdf-syntax-ns#List>.
+        <http://data.lblod.info/id/node-paths/5a2bd032-ada3-11ef-8872-33bcef484b5e> <http://mu.semte.ch/vocabularies/core/uuid> """5a2bd032-ada3-11ef-8872-33bcef484b5e""".
+        <http://data.lblod.info/id/node-paths/5a2bd032-ada3-11ef-8872-33bcef484b5e> <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.vlaanderen.be/ns/persoon#geslacht>.
+        <http://data.lblod.info/id/node-paths/5a2bd033-ada3-11ef-8872-33bcef484b5e> a <http://www.w3.org/1999/02/22-rdf-syntax-ns#List>.
+        <http://data.lblod.info/id/node-paths/5a2bd033-ada3-11ef-8872-33bcef484b5e> <http://mu.semte.ch/vocabularies/core/uuid> """5a2bd033-ada3-11ef-8872-33bcef484b5e""".
+        <http://data.lblod.info/id/node-paths/5a2bd033-ada3-11ef-8872-33bcef484b5e> <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://www.w3.org/2004/02/skos/core#prefLabel>.
+        <http://data.lblod.info/id/node-paths/5a2bd033-ada3-11ef-8872-33bcef484b5e> <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
+        <http://data.lblod.info/id/node-paths/5a2bd032-ada3-11ef-8872-33bcef484b5e> <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://data.lblod.info/id/node-paths/5a2bd033-ada3-11ef-8872-33bcef484b5e>.
+        <http://data.lblod.info/id/node-shapes/5a2bd031-ada3-11ef-8872-33bcef484b5e> <http://www.w3.org/ns/shacl#path> <http://data.lblod.info/id/node-paths/5a2bd032-ada3-11ef-8872-33bcef484b5e>
+       }
+     }
 ```
