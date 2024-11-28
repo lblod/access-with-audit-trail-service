@@ -136,28 +136,34 @@ The following should be saved in the triplestore:
 
      INSERT DATA {
        graph <http://mu.semte.ch/graphs/audit-trail-service> {
-         <http://data.lblod.info/id/audit-trail-entries/db5654b0-ada2-11ef-8872-33bcef484b5e> a ext:AuditTrailEntry;
-           mu:uuid "db5654b0-ada2-11ef-8872-33bcef484b5e";
-           dcterms:created "2024-11-28T16:07:24.794Z"^^xsd:dateTime;
+         <http://data.lblod.info/id/audit-trail-entries/a6cc40d0-adbe-11ef-b5f4-fd38d66e2101> a ext:AuditTrailEntry;
+           mu:uuid "a6cc40d0-adbe-11ef-b5f4-fd38d66e2101";
+           dcterms:created "2024-11-28T19:26:22.556Z"^^xsd:dateTime;
            dcterms:identifier """b838f67c-6c4c-44b2-8297-c9eefccc5e35""";
            ext:requester  <http://data.lblod.info/id/account/cd52ed34-7bcd-41df-a7d4-c805c1d1a197>;
            ext:subject <http://data.lblod.info/id/personen/fa346447ef3262f90217c8534e49e9f7>;
-           ext:shape <http://data.lblod.info/id/node-shapes/db5654b1-ada2-11ef-8872-33bcef484b5e>,<http://data.lblod.info/id/node-shapes/db5654b2-ada2-11ef-8872-33bcef484b5e>;
+           ext:shape <http://data.lblod.info/id/node-shapes/a6cc40d1-adbe-11ef-b5f4-fd38d66e2101>,<http://data.lblod.info/id/node-shapes/a6cc40d3-adbe-11ef-b5f4-fd38d66e2101>;
            ext:code  <http://data.lblod.info/id/information-request-reason/3aeec145-acf3-4b6e-9c00-5b8e285736e0>.
-
-         <http://data.lblod.info/id/node-shapes/db5654b1-ada2-11ef-8872-33bcef484b5e> a <http://www.w3.org/ns/shacl#NodeShape> .
-         <http://data.lblod.info/id/node-shapes/db5654b1-ada2-11ef-8872-33bcef484b5e> <http://mu.semte.ch/vocabularies/core/uuid> """db5654b1-ada2-11ef-8872-33bcef484b5e""".
-         <http://data.lblod.info/id/node-shapes/db5654b1-ada2-11ef-8872-33bcef484b5e> <http://www.w3.org/ns/shacl#path> <http://xmlns.com/foaf/0.1/givenName>.
-
-         <http://data.lblod.info/id/node-shapes/db5654b2-ada2-11ef-8872-33bcef484b5e> a <http://www.w3.org/ns/shacl#NodeShape> .
-         <http://data.lblod.info/id/node-shapes/db5654b2-ada2-11ef-8872-33bcef484b5e> <http://mu.semte.ch/vocabularies/core/uuid> """db5654b2-ada2-11ef-8872-33bcef484b5e""".
-         <http://data.lblod.info/id/node-shapes/db5654b2-ada2-11ef-8872-33bcef484b5e> <http://www.w3.org/ns/shacl#path> <http://xmlns.com/foaf/0.1/familyName>.
+         <http://data.lblod.info/id/node-shapes/a6cc40d1-adbe-11ef-b5f4-fd38d66e2101> a <http://www.w3.org/ns/shacl#NodeShape>.
+	       <http://data.lblod.info/id/node-shapes/a6cc40d1-adbe-11ef-b5f4-fd38d66e2101> <http://mu.semte.ch/vocabularies/core/uuid> """a6cc40d1-adbe-11ef-b5f4-fd38d66e2101""".
+         <http://data.lblod.info/id/node-paths/a6cc40d2-adbe-11ef-b5f4-fd38d66e2101> a <http://www.w3.org/1999/02/22-rdf-syntax-ns#List>.
+         <http://data.lblod.info/id/node-paths/a6cc40d2-adbe-11ef-b5f4-fd38d66e2101> <http://mu.semte.ch/vocabularies/core/uuid> """a6cc40d2-adbe-11ef-b5f4-fd38d66e2101""".
+         <http://data.lblod.info/id/node-paths/a6cc40d2-adbe-11ef-b5f4-fd38d66e2101> <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://xmlns.com/foaf/0.1/givenName>.
+         <http://data.lblod.info/id/node-paths/a6cc40d2-adbe-11ef-b5f4-fd38d66e2101> <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
+         <http://data.lblod.info/id/node-shapes/a6cc40d1-adbe-11ef-b5f4-fd38d66e2101> <http://www.w3.org/ns/shacl#path> <http://data.lblod.info/id/node-paths/a6cc40d2-adbe-11ef-b5f4-fd38d66e2101>.
+         <http://data.lblod.info/id/node-shapes/a6cc40d3-adbe-11ef-b5f4-fd38d66e2101> a <http://www.w3.org/ns/shacl#NodeShape>.
+         <http://data.lblod.info/id/node-shapes/a6cc40d3-adbe-11ef-b5f4-fd38d66e2101> <http://mu.semte.ch/vocabularies/core/uuid> """a6cc40d3-adbe-11ef-b5f4-fd38d66e2101""".
+         <http://data.lblod.info/id/node-paths/a6cc40d4-adbe-11ef-b5f4-fd38d66e2101> a <http://www.w3.org/1999/02/22-rdf-syntax-ns#List>.
+         <http://data.lblod.info/id/node-paths/a6cc40d4-adbe-11ef-b5f4-fd38d66e2101> <http://mu.semte.ch/vocabularies/core/uuid> """a6cc40d4-adbe-11ef-b5f4-fd38d66e2101""".
+         <http://data.lblod.info/id/node-paths/a6cc40d4-adbe-11ef-b5f4-fd38d66e2101> <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://xmlns.com/foaf/0.1/familyName>.
+         <http://data.lblod.info/id/node-paths/a6cc40d4-adbe-11ef-b5f4-fd38d66e2101> <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
+         <http://data.lblod.info/id/node-shapes/a6cc40d3-adbe-11ef-b5f4-fd38d66e2101> <http://www.w3.org/ns/shacl#path> <http://data.lblod.info/id/node-paths/a6cc40d4-adbe-11ef-b5f4-fd38d66e2101>.
        }
      }
 
 ```
 
-In case you request for the `gender`, which requires multiple paths, you will get a rdf list:
+In case you request for the `gender`, which requires multiple paths, you will get the following:
 
 `curl http://localhost/access-with-audit-trail/people/fa346447ef3262f90217c8534e49e9f7?reasonId=3aeec145-acf3-4b6e-9c00-5b8e285736e0&include=gender`
 
