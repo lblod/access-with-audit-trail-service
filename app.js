@@ -40,8 +40,9 @@ async function processRead(sessionId, params) {
   const { key, reasonId, resourceId, include } = params;
 
   let reason = await getReasonUri(reasonId);
-  let accountUri = await getAccountBySession(sessionId);
+  let { accountUri, identifier } = await getAccountBySession(sessionId);
   checkNotEmpty(accountUri, 'Account must be set!');
+  checkNotEmpty(identifier, 'Identifier must be set!');
   let resourceConfig = config.getResource(key);
   checkNotEmpty(resourceConfig, `no configuration found for ${key}`);
   let props = include.split(',');
@@ -68,7 +69,9 @@ async function processRead(sessionId, params) {
     );
     return { data: null };
   }
-  await writeReason(subject, accountUri, reason, [...foundAttributes.values()]);
+  await writeReason(subject, accountUri, identifier, reason, [
+    ...foundAttributes.values(),
+  ]);
   const attrs = [...foundAttributes].reduce((o, [key, value]) => {
     o[key] = value.attribute;
     return o;
